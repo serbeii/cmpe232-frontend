@@ -1,0 +1,40 @@
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust to your preference */
+}
+
+.login-form {
+  width: 300px; /* Adjust to your preference */
+  padding: 15px;
+  padding-top: 20px;
+  padding-botto: 20px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-field {
+  width: calc(100%);
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 6px;
+  background-color: #4caf50; /* Green color, you can change it */
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #45a049; /* Darker green color on hover */
+}
+

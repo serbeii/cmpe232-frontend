@@ -1,20 +1,20 @@
-import { BrowserRouter,Routes,Route } from "react-router-dom";
-import Register from "./components/Register";
-import Login from "./components/Login";
- 
-import Home from "./components/Home";
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginForm from './components/LoginForm';
+
+const AdminPage = () => <div>Admin Page</div>;
+const UserPage = () => <div>User Page</div>;
+
+const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-            <Routes>
-              <Route path="/home" element= { <Home/>} />
-              <Route path="/register" element= { <Register/>} />
-              <Route path="/" element= { <Login/>} />
-            </Routes>
-        </BrowserRouter>
-      
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/user" element={<UserPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
+
 export default App;

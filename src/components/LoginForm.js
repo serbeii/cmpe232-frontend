@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './LoginForm.css'; // Import the custom CSS file
+import './LoginForm.css';
 
-const LoginForm = () => {
+const LoginForm = ({onLoginSuccess}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -15,14 +15,13 @@ const LoginForm = () => {
     const payload = { username, password };
 
     try {
-      // Use Axios for the API call
       const response = await axios.post(`http://localhost:8085/api/v1${apiEndpoint}`, payload);
 
-      // Continue with the rest of the logic as before
       if (response.status === 200) {
         const role = response.data;
+        
+        onLoginSuccess(role);
 
-        // Redirect using navigate
         navigate(role === 'ADMIN' ? '/admin' : '/user');
       } else {
         console.error('Login/Register failed');

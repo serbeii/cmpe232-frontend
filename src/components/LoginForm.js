@@ -20,11 +20,10 @@ const LoginForm = () => {
 
       // Continue with the rest of the logic as before
       if (response.status === 200) {
-        const result = response.data;
-        const isAdmin = result.isAdmin;
+        const role = response.data;
 
         // Redirect using navigate
-        navigate(isAdmin ? '/admin' : '/user');
+        navigate(role === 'ADMIN' ? '/admin' : '/user');
       } else {
         console.error('Login/Register failed');
       }
@@ -68,4 +67,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

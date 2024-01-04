@@ -3,7 +3,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   height: 100vh;
-  background-color: #5d3954;
+  background-color: #afafaf;
   color: white;
 }
 
@@ -47,10 +47,10 @@ label {
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  width: 100%; /* Make labels take up the full width */
-  margin: 5px; /* Adjust the margin as needed */
-  align-self: center; /* Align the label vertically with the middle of the input box */
-}
+  width: 100%; 
+  margin: 5px;
+  align-self: center;
+  }
 
 .bordered {
   border: 1px solid #ccc;

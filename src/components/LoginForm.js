@@ -23,6 +23,9 @@ const LoginForm = ({onLoginSuccess}) => {
         onLoginSuccess(role);
 
         sessionStorage.setItem('User id', id);
+        sessionStorage.setItem('role', role);
+        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('password', password);
 
         navigate(role === 'ADMIN' ? '/admin' : '/user');
       } else {

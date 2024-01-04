@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Quadrant3 = () => {
+const Quadrant3 = ({ sendFormToAPI }) => {
   const [formInput, setFormInput] = useState('');
 
   return (
@@ -8,8 +8,6 @@ const Quadrant3 = () => {
       <button onClick={() => sendFormToAPI(formInput)} className="admin-button">
         Send Form to localhost:8085/api/v1/album/makeAlbum
       </button>
-      {/* Render 22 forms (11 on each side) */}
-      {/* Add your form elements here and update the formInput state */}
     </div>
   );
 };

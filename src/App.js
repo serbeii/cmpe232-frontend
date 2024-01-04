@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
+import AdminPage from './components/AdminPage';
 
-const AdminPage = () => <div>Admin Page</div>;
+//const AdminPage = () => <div>Admin Page</div>;
 const UserPage = () => <div>User Page</div>;
 
 const App = () => {

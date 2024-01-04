@@ -1,39 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './AdminPage.css'
+import React from 'react';
+import { AdminQuadrant, AdminScreen } from './AdminScreen';
+import Quadrant1 from './AdminQuadrants/Quadrant1';
+import Quadrant2 from './AdminQuadrants/Quadrant2';
+import Quadrant3 from './AdminQuadrants/Quadrant3';
+import Quadrant4 from './AdminQuadrants/Quadrant4';
+import './AdminScreen.css';
 
 const AdminPage = () => {
-  const [username, setUsername] = useState('');
-  const uid = sessionStorage.getItem('User id');
+  const quadrantContents = [
+    <AdminQuadrant
+      quadrantTitle="Quadrant 1"
+      quadrantContent={<Quadrant1 />}
+    />,
+    <AdminQuadrant
+      quadrantTitle="Quadrant 2"
+      quadrantContent={<Quadrant2 />}
+    />,
+    <AdminQuadrant
+      quadrantTitle="Quadrant 3"
+      quadrantContent={<Quadrant3 />}
+    />,
+    <AdminQuadrant
+      quadrantTitle="Quadrant 4"
+      quadrantContent={<Quadrant4 />}
+    />,
+  ];
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8085/api/test/details`, {
-          params: {
-            userId: uid
-          }
-        });
-
-        if (response.status === 200) {
-          setUsername(response.data);
-        } else {
-          console.error('Failed to fetch details');
-        }
-      } catch (error) {
-        console.error('Error during API call:', error);
-      }
-    };
-
-    // Call the function to fetch user details when the component mounts
-    fetchUserDetails();
-  }, [uid]); // Trigger the effect when uid changes
 
   return (
     <div>
-      <h1>Welcome to Admin Page</h1>
-      <p>Username: {username}</p>
-      {/* Add other content as needed */}
+      <AdminScreen quadrantContents={quadrantContents} />
     </div>
   );
 };

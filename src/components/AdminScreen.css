@@ -1,0 +1,59 @@
+.admin-screen {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  height: 100vh;
+  background-color: #5d3954;
+  color: white;
+}
+
+.quadrant {
+  display: flex;
+  padding-left: 40px;
+  padding-top: 30px;
+  justify-content: left;
+  align-items: top;
+  border-radius: 20px;
+  margin: 10px;
+  background-color: #522d80;
+}
+
+.input-field {
+  width: calc(100%);
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.admin-button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 6px;
+  background-color: #e0e0e0;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  width: 100%; /* Make labels take up the full width */
+  margin: 5px; /* Adjust the margin as needed */
+  align-self: center; /* Align the label vertically with the middle of the input box */
+}
+
+.bordered {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+}

@@ -3,21 +3,24 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #563c5c;
 }
 
 .login-form {
+  background-color: #522d80; 
   width: 300px;
   padding: 15px;
   padding-top: 20px;
-  padding-botto: 20px;
+  padding-bottom: 20px;
   margin: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: white;
 }
 
 .input-field {
-  width: calc(100%);
+  width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 10px;
   box-sizing: border-box;
@@ -27,14 +30,14 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 6px;
-  background-color: #4caf50;
-  color: white;
+  background-color: #e0e0e0;
+  color: #333;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .submit-button:hover {
-  background-color: #45a049;
+  background-color: #f0f0f0;
 }
 

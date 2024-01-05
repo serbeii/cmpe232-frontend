@@ -4,7 +4,7 @@ import Quadrant1 from './AdminQuadrants/Quadrant1';
 import Quadrant2 from './AdminQuadrants/Quadrant2';
 import Quadrant3 from './AdminQuadrants/Quadrant3';
 import Quadrant4 from './AdminQuadrants/Quadrant4';
-import './AdminScreen.css';
+import './Quadrant.css';
 
 const AdminPage = () => {
   const quadrantContents = [

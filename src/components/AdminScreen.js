@@ -1,5 +1,5 @@
 import React from 'react';
-import './AdminScreen.css';
+import './Quadrant.css';
 
 const AdminQuadrant = ({ quadrantTitle, quadrantContent }) => {
   return (

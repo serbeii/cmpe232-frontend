@@ -2,7 +2,7 @@ import React from 'react';
 import './Quadrant.css';
 
 
-const UserQuadrant = ({ quadrantTitle, quadrantContent, className }) => {
+const UserQuadrant = ({ quadrantTitle, quadrantContent }) => {
   return (
     <div className="quadrant">
       <h3>{quadrantTitle}</h3>

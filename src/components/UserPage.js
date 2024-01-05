@@ -11,22 +11,18 @@ const UserPage = () => {
     <UserQuadrant
       quadrantTitle="Quadrant 1"
       quadrantContent={<Quadrant1 />}
-      className="q1"
     />,
     <UserQuadrant
       quadrantTitle="Quadrant 2"
       quadrantContent={<Quadrant2 />}
-      className="q2"
     />,
     <UserQuadrant
       quadrantTitle="Quadrant 3"
       quadrantContent={<Quadrant3 />}
-      className="q3"
     />,
     <UserQuadrant
       quadrantTitle="Quadrant 4"
       quadrantContent={<Quadrant4 />}
-      className="q4"
     />,
   ];
 

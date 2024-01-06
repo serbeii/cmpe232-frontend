@@ -171,6 +171,16 @@ const Quadrant4 = () => {
     }
   }; 
 
+    const removeDatabase = async (event) => {
+        event.preventDefault();
+        try {
+            const response  = await axios.delete(`${route}/resetDatabase/${userId}`);
+        }
+        finally{
+            window.location.reload(); 
+        }
+    };
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
       <div className='bordered'>
@@ -293,7 +303,7 @@ const Quadrant4 = () => {
       </div>
 
       <div className='bordered'>
-      <button className="admin-button">
+      <button onClick={(e) => removeDatabase(e)} className="admin-button">
       DESTROY DATABASE
       </button>
       </div>

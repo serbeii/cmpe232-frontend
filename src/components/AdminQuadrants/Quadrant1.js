@@ -19,7 +19,6 @@ const Quadrant1 = () => {
     fetchData();
   }, []);
 
-    // TODO: fix items not showing and implement a better null check.
   return (
     <div>
       <h1>User Album Collection View</h1>
@@ -38,12 +37,15 @@ const Quadrant1 = () => {
           <tbody>
             {data.map(item => {
               console.log('item:', item); // Log item to the console for debugging
+              if (!item || !item.collectionId || !item.user_id || !item.username || !item.albumTitle) {
+                return null;
+              }
               return (
                 <tr key={item.collectionId}>
                   <td>{item.collectionId}</td>
-                  <td>{item.user?.user_id ?? 'error'}</td>
-                  <td>{item.user?.username ?? 'error'}</td>
-                  <td>{item.album?.albumTitle ?? 'error'}</td>
+                  <td>{item.user_id}</td>
+                  <td>{item.username}</td>
+                  <td>{item.albumTitle}</td>
                 </tr>
               );
             })}
@@ -55,4 +57,3 @@ const Quadrant1 = () => {
 };
 
 export default Quadrant1;
-

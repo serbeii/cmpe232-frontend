@@ -1,11 +1,11 @@
 .quadrant3-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns for the 11-11-10-10 layout */
-  gap: 10px; /* Adjust the gap between the columns */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 }
 
 .quadrant3-container input {
   width: 90%;
-  padding: 8px;
-  margin-bottom: 8px;
+  padding: 12px;
+  margin-right: 8px;
 }

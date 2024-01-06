@@ -13,17 +13,34 @@ const Quadrant3 = () => {
 
   const sendFormToAPI = async (formInputs) => {
 
-      console.log(formInputs[42]);
     const payload = {
-      title: formInputs[43],
-      releaseDate: formInputs[41],
-      genre: formInputs[40],
-      artistName: formInputs[42]
+        albumDTO: {
+            title: formInputs[0],
+            artistName: formInputs[1],
+            genre: formInputs[2],
+            releaseDate: formInputs[3]
+        },
+        songDTO: []
     };
+
+    for (let i = 4; i <= 23; i++) {
+        const currentFormValue = formInputs[i];
+        const equivalentIndex = i + 20; 
+
+        if (currentFormValue === null || formInputs[equivalentIndex] === null || formInputs[equivalentIndex] === "") {
+            break;
+        }
+
+        payload.songDTO.push({
+            song_title: currentFormValue,
+            duration: formInputs[equivalentIndex]
+        });
+            console.log(`Iteration ${i}:`, payload);
+    }  
 
       console.log(payload);
     try {
-      const reply = await axios.post('http://localhost:8085/api/v1/album/add', payload);
+      const reply = await axios.post('http://localhost:8085/api/v1/album/add', payload, { headers: { 'Content-Type': 'application/json' } });
       console.log(reply.data); 
     } catch (error) {
       console.error(error);
@@ -33,13 +50,61 @@ const Quadrant3 = () => {
   const renderFormButtons = () => {
     const forms = [];
 
-    // Songs 0-19
-    for (let i = 0; i <= 19; i++) {
+        // Title (0)
+    forms.push(
+      <div key={0}>
+        <input
+          type="text"
+          placeholder="Title"
+          value={formInputs[0]}
+          onChange={(e) => handleFormInputChange(0, e.target.value)}
+        />
+      </div>
+    );
+
+    // Artist Name (1)
+    forms.push(
+      <div key={1}>
+        <input
+          type="text"
+          placeholder="Artist Name"
+          value={formInputs[1]}
+          onChange={(e) => handleFormInputChange(1, e.target.value)}
+        />
+      </div>
+    );
+
+    // Genre (2)
+    forms.push(
+      <div key={2}>
+        <input
+          type="text"
+          placeholder="Genre"
+          value={formInputs[2]}
+          onChange={(e) => handleFormInputChange(2, e.target.value)}
+        />
+      </div>
+    );
+
+    // Release Date (3)
+    forms.push(
+      <div key={3}>
+        <input
+          type="text"
+          placeholder="ReleaseDate"
+          value={formInputs[3]}
+          onChange={(e) => handleFormInputChange(3, e.target.value)}
+        />
+      </div>
+    );
+
+    // Songs 4-23
+    for (let i = 4; i <= 23; i++) {
       forms.push(
         <div key={i}>
           <input
             type="text"
-            placeholder={`Song ${i + 1}`}
+            placeholder={`Song ${i - 3}`}
             value={formInputs[i]}
             onChange={(e) => handleFormInputChange(i, e.target.value)}
           />
@@ -48,12 +113,12 @@ const Quadrant3 = () => {
     }
 
     // Durations 20-39
-    for (let i = 20; i <= 39; i++) {
+    for (let i = 24; i <= 43; i++) {
       forms.push(
         <div key={i}>
           <input
             type="text"
-            placeholder={`Duration ${i - 19}`}
+            placeholder={`Duration ${i - 23}`}
             value={formInputs[i]}
             onChange={(e) => handleFormInputChange(i, e.target.value)}
           />
@@ -61,59 +126,11 @@ const Quadrant3 = () => {
       );
     }
 
-    // Genre (40)
-    forms.push(
-      <div key={40}>
-        <input
-          type="text"
-          placeholder="Genre"
-          value={formInputs[40]}
-          onChange={(e) => handleFormInputChange(40, e.target.value)}
-        />
-      </div>
-    );
-
-    // Registration Date (41)
-    forms.push(
-      <div key={41}>
-        <input
-          type="text"
-          placeholder="Registration Date"
-          value={formInputs[41]}
-          onChange={(e) => handleFormInputChange(41, e.target.value)}
-        />
-      </div>
-    );
-
-    // Artist Name (42)
-    forms.push(
-      <div key={42}>
-        <input
-          type="text"
-          placeholder="Artist Name"
-          value={formInputs[42]}
-          onChange={(e) => handleFormInputChange(42, e.target.value)}
-        />
-      </div>
-    );
-
-    // Title (43)
-    forms.push(
-      <div key={43}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={formInputs[43]}
-          onChange={(e) => handleFormInputChange(43, e.target.value)}
-        />
-      </div>
-    );
-
     // Submission button moved to the top
     forms.unshift(
       <div key={44}>
         <button onClick={() => sendFormToAPI(formInputs)} className="admin-button">
-          Send Forms to localhost:8085/api/v1/album/makeAlbum
+          CREATE ALBUM 
         </button>
       </div>
     );

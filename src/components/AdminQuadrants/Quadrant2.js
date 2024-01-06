@@ -20,7 +20,7 @@ const Quadrant2 = () => {
     return updatedKeywords;
   });
 };
-
+  // TODO: change this quadrant
 useEffect(() => {
   updateQuery();
 }, [selectedKeywords]);

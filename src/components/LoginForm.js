@@ -17,7 +17,7 @@ const LoginForm = ({ onLoginSuccess }) => {
         try {
             const response = await axios.post(`http://localhost:8085/api/v1${apiEndpoint}`, payload);
 
-            if (response.status === 200) {
+            if (response.status === 200 && isLogin) {
                 const { role, id } = response.data;
 
                 onLoginSuccess(role);

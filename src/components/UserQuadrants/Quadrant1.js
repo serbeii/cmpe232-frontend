@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const Quadrant1 = ({ setSelectedAlbumTitle, setSelectedArtistName }) => {
+const Quadrant1 = ({ setSelectedAlbumTitle, refreshFlag}) => {
     const [showSearchResults, setShowSearchResults] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [allElements, setAllElements] = useState([]);    
+    const [allElements, setAllElements] = useState([]);
     const [username, setUsername] = useState('');
     const user_id = sessionStorage.getItem('User id');
 
@@ -28,7 +28,7 @@ const Quadrant1 = ({ setSelectedAlbumTitle, setSelectedArtistName }) => {
 
     useEffect(() => {
         handleShowAllElements();
-    }, [handleShowAllElements]);
+    }, [handleShowAllElements, refreshFlag]);
 
     const addToCollection = async (result) => {
         const payload = {

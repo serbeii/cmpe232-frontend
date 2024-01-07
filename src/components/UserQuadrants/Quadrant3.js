@@ -1,24 +1,28 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Quadrant3 = ({ albumTitle }) => {
+const Quadrant3 = ({ albumTitle, setRefreshFlag }) => {
     const [newUsername, setNewUsername] = useState('');
     const route = 'http://localhost:8085/api/v1/user';
     const userId = sessionStorage.getItem('User id');
     const username = sessionStorage.getItem('username');
+    const navigate = useNavigate();
 
     const removeAlbumFromCollection = async () => {
-        // Your asynchronous logic for removing the selected album
         const payload = {
             albumTitle: albumTitle,
             userId: userId
         }
 
         try {
-            const response = axios.post(`${route}/deleteAlbumFromCollection`, payload);
+            const response = await axios.post(`${route}/deleteAlbumFromCollection`, payload);
         }
         catch (error) {
             console.log(error);
+        }
+        finally {
+            setRefreshFlag();
         }
 
         console.log('Removing selected album from collection');
@@ -26,10 +30,13 @@ const Quadrant3 = ({ albumTitle }) => {
 
     const resetCollection = async () => {
         try {
-            const response = axios.post(`${route}/deleteEntireCollection`, { userId });
+            const response = await axios.post(`${route}/deleteEntireCollection`, { userId });
         }
         catch (error) {
             console.log(error);
+        }
+        finally {
+            setRefreshFlag();
         }
 
         console.log('Resetting collection');
@@ -37,9 +44,10 @@ const Quadrant3 = ({ albumTitle }) => {
 
     const changeUsername = async () => {
         try {
-            const response = axios.post(`${route}/changeUsername/${username}`, { newUsername });
+            const response = await axios.post(`${route}/changeUsername/${username}`, { newUsername });
             if (response.status === 200) {
-                window.location.reload();
+                console.log('success');
+                navigate('/');
             }
         }
         catch (error) {

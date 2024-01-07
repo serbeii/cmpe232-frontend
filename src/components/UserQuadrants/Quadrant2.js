@@ -27,6 +27,7 @@ const Quadrant2 = ({ albumTitle }) => {
                         <strong>Artist:</strong> {albumData.albumDTO.artistName},
                         <strong>Genre:</strong> {albumData.albumDTO.genre},
                         <strong>Release Date:</strong> {albumData.albumDTO.releaseDate},
+                        <strong>Duration::</strong> {convertSecondsToMinutes(albumData.albumDTO.duration)},                        
                     </li>
 
                     <h3>Songs</h3>

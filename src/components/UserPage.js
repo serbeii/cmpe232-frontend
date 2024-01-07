@@ -8,23 +8,37 @@ import './Quadrant.css';
 
 const UserPage = () => {
     const [selectedAlbumTitle, setSelectedAlbumTitle] = useState('');
+    const [refreshFlag, setRefreshFlag] = useState(false);
+
+    const refresh = () => {
+        setRefreshFlag(true);
+        setTimeout(() => {
+            setRefreshFlag(false)
+        }, 500);
+    };
 
     const quadrantContents = [
         <UserQuadrant
             quadrantContent={<Quadrant1
-                setSelectedAlbumTitle={setSelectedAlbumTitle} />}
+                setSelectedAlbumTitle={setSelectedAlbumTitle}
+                refreshFlag={refreshFlag}
+            />}
         />,
         <UserQuadrant
             quadrantContent={<Quadrant2
-                albumTitle={selectedAlbumTitle} />}
+                albumTitle={selectedAlbumTitle}
+            />}
         />,
         <UserQuadrant
             quadrantContent={<Quadrant3
-                albumTitle={selectedAlbumTitle} />}
+                albumTitle={selectedAlbumTitle}
+                setRefreshFlag={refresh}
+            />}
         />,
         <UserQuadrant
             quadrantContent={<Quadrant4
-                albumTitle={selectedAlbumTitle} />}
+                albumTitle={selectedAlbumTitle}
+            />}
         />
     ];
 

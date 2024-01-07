@@ -4,9 +4,6 @@ import LoginForm from './components/LoginForm';
 import AdminPage from './components/AdminPage';
 import UserPage from './components/UserPage';
 
-//const AdminPage = () => <div>Admin Page</div>;
-//const UserPage = () => <div>User Page</div>;
-
 const App = () => {
     const [userRoles, setUserRoles] = useState([]);
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Quadrant1 = () => {
+const Quadrant1 = ({refreshFlag}) => {
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
 
@@ -17,7 +17,7 @@ const Quadrant1 = () => {
         };
 
         fetchData();
-    }, []);
+    }, [refreshFlag]);
 
     return (
         <div>

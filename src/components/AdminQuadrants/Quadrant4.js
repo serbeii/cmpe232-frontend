@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const Quadrant4 = () => {
+const Quadrant4 = ({ setRefreshFlag }) => {
     const [username, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [adminName, setAdminName] = useState('');
@@ -23,6 +24,7 @@ const Quadrant4 = () => {
 
     const route = 'http://localhost:8085/api/v1/admin';
     const userId = sessionStorage.getItem('User id');
+    const navigate = useNavigate();
 
     const addUser = async (event) => {
         event.preventDefault();
@@ -122,6 +124,9 @@ const Quadrant4 = () => {
         } catch (error) {
             console.error('Error:', error);
         }
+        finally {
+            setRefreshFlag();
+        }
     };
 
     const updateUsername = async (event) => {
@@ -148,6 +153,9 @@ const Quadrant4 = () => {
         } catch (error) {
             console.error('Error:', error);
         }
+        finally {
+            setRefreshFlag();
+        }
     };
 
     const removeUser = async (event) => {
@@ -171,6 +179,9 @@ const Quadrant4 = () => {
         } catch (error) {
             console.error('Error:', error);
         }
+        finally {
+            setRefreshFlag();
+        }
     };
 
     const removeDatabase = async (event) => {
@@ -180,6 +191,7 @@ const Quadrant4 = () => {
         }
         finally {
             window.location.reload();
+            navigate('/');
         }
     };
 
@@ -208,8 +220,10 @@ const Quadrant4 = () => {
         } catch (error) {
             console.error('Error:', error);
         }
-    };
-
+        finally {
+            setRefreshFlag();
+        }
+    }; 
 
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
@@ -335,6 +349,12 @@ const Quadrant4 = () => {
             <div className='bordered'>
                 <button onClick={(e) => removeDatabase(e)} className="admin-button">
                     DESTROY DATABASE
+                </button>
+            </div>
+
+            <div className='bordered'>
+                <button onClick={setRefreshFlag} className="admin-button">
+                    REFRESH VIEWS
                 </button>
             </div>
 

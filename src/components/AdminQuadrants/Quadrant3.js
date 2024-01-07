@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import './Quadrant3.css';
 
-const Quadrant3 = () => {
+const Quadrant3 = ({ setRefreshFlag }) => {
     const [formInputs, setFormInputs] = useState(Array(44).fill(''));
 
     const handleFormInputChange = (index, value) => {
@@ -35,15 +35,16 @@ const Quadrant3 = () => {
                 song_title: currentFormValue,
                 duration: formInputs[equivalentIndex]
             });
-            console.log(`Iteration ${i}:`, payload);
         }
 
-        console.log(payload);
         try {
             const reply = await axios.post('http://localhost:8085/api/v1/album/add', payload, { headers: { 'Content-Type': 'application/json' } });
             console.log(reply.data);
         } catch (error) {
             console.error(error);
+        }
+        finally {
+            setRefreshFlag();
         }
     };
 

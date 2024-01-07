@@ -7,31 +7,27 @@ import Quadrant4 from './AdminQuadrants/Quadrant4';
 import './Quadrant.css';
 
 const AdminPage = () => {
-  const quadrantContents = [
-    <AdminQuadrant
-      quadrantTitle="Quadrant 1"
-      quadrantContent={<Quadrant1 />}
-    />,
-    <AdminQuadrant
-      quadrantTitle="Quadrant 2"
-      quadrantContent={<Quadrant2 />}
-    />,
-    <AdminQuadrant
-      quadrantTitle="Quadrant 3"
-      quadrantContent={<Quadrant3 />}
-    />,
-    <AdminQuadrant
-      quadrantTitle="Quadrant 4"
-      quadrantContent={<Quadrant4 />}
-    />,
-  ];
+    const quadrantContents = [
+        <AdminQuadrant
+            quadrantContent={<Quadrant1 />}
+        />,
+        <AdminQuadrant
+            quadrantContent={<Quadrant2 />}
+        />,
+        <AdminQuadrant
+            quadrantContent={<Quadrant3 />}
+        />,
+        <AdminQuadrant
+            quadrantContent={<Quadrant4 />}
+        />,
+    ];
 
 
-  return (
-    <div>
-      <AdminScreen quadrantContents={quadrantContents} />
-    </div>
-  );
+    return (
+        <div>
+            <AdminScreen quadrantContents={quadrantContents} />
+        </div>
+    );
 };
 
 export default AdminPage;

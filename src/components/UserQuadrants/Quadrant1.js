@@ -1,100 +1,98 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const Quadrant1 = ({setSelectedAlbumTitle, setSelectedArtistName}) => {
-  const [showSearchResults, setShowSearchResults] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [allElements, setAllElements] = useState([]);
-  const user_id = sessionStorage.getItem('User id'); 
+const Quadrant1 = ({ setSelectedAlbumTitle, setSelectedArtistName }) => {
+    const [showSearchResults, setShowSearchResults] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [allElements, setAllElements] = useState([]);
+    const user_id = sessionStorage.getItem('User id');
 
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.get(`http://localhost:8085/api/v1/album/searchAlbum/${searchQuery}`);
-        setSearchResults(response.data);
-        console.log(response.data)
-    } catch (error) {
-        console.error('Error fetching search results:', error);
-    } finally {
-        setSearchQuery(''); 
-    }
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.get(`http://localhost:8085/api/v1/album/searchAlbum/${searchQuery}`);
+            setSearchResults(response.data);
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        } finally {
+            setSearchQuery('');
+        }
     };
 
-  const handleShowAllElements = useCallback(async () => {
-    const allElements = await axios.get(`http://localhost:8085/api/v1/user/viewCollection/${user_id}`);
-    setAllElements(allElements.data);
-      console.log(allElements.data);
-  }, []);
+    const handleShowAllElements = useCallback(async () => {
+        const allElements = await axios.get(`http://localhost:8085/api/v1/user/viewCollection/${user_id}`);
+        setAllElements(allElements.data);
+    }, []);
 
-  useEffect(() => {
-     handleShowAllElements();
-  }, [handleShowAllElements]);
+    useEffect(() => {
+        handleShowAllElements();
+    }, [handleShowAllElements]);
 
-  const addToCollection = async (result) => {
-      const payload = {
-        userId: user_id,
-        albumTitle: result.title
-      }
-      try{
-        const response = await axios.post(`http://localhost:8085/api/v1/user/addAlbumtoCollection`, payload);
-      }
-      catch (error) {
-          console.log(error);
-      }
-  };
+    const addToCollection = async (result) => {
+        const payload = {
+            userId: user_id,
+            albumTitle: result.title
+        }
+        try {
+            const response = await axios.post(`http://localhost:8085/api/v1/user/addAlbumtoCollection`, payload);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
 
-  return (
-    <div>
-      <button onClick={() => {setShowSearchResults(!showSearchResults); handleShowAllElements()} }>
-        Toggle Menu
-      </button>
-
-      {showSearchResults ? (
-        <div >
-            <form onSubmit={handleSearchSubmit}>
-            <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Enter search query"
-            style={{ width: '300px', marginRight: '10px' }}
-            />
-            </form>
-    
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
-            <button type="button" onClick={handleSearchSubmit}>Search</button>
-        </div>
-
-            <ul>
-            {searchResults.map((result) => (
-                <li key={result.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>   
-                <strong>Title:</strong> {result.title}, <strong>Release Date:</strong> {result.releaseDate},{' '}
-                <strong>Genre:</strong> {result.genre}, <strong>Artist:</strong> {result.artistName}
-                    <button onClick={() => addToCollection(result)} style={{ marginLeft: '10px' }}>
-                        Add to Collection
-                    </button>
-                </li>
-                ))}
-            </ul>
-        </div>    
-      ) : (
+    return (
         <div>
-          <ul>
-            {allElements.map((element) => (
-              <li key={element.id}>
-                <strong>Title:</strong> {element.album_title}, <strong>Release Date:</strong> {element.release_date},{' '}
-                <strong>Genre:</strong> {element.genre}, <strong>Artist:</strong> {element.artist_name}
-                <button onClick={() => {setSelectedAlbumTitle(element.album_title); console.log(element.album_title)}}>
-                  View Details
-                </button>
-              </li>
-            ))}
-          </ul>
+            <button onClick={() => { setShowSearchResults(!showSearchResults); handleShowAllElements() }}>
+                Toggle Menu
+            </button>
+
+            {showSearchResults ? (
+                <div >
+                    <form onSubmit={handleSearchSubmit}>
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Enter search query"
+                            style={{ width: '300px', marginRight: '10px' }}
+                        />
+                    </form>
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                        <button type="button" onClick={handleSearchSubmit}>Search</button>
+                    </div>
+
+                    <ul>
+                        {searchResults.map((result) => (
+                            <li key={result.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                                <strong>Title:</strong> {result.title}, <strong>Release Date:</strong> {result.releaseDate},{' '}
+                                <strong>Genre:</strong> {result.genre}, <strong>Artist:</strong> {result.artistName}
+                                <button onClick={() => addToCollection(result)} style={{ marginLeft: '10px' }}>
+                                    Add to Collection
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ) : (
+                <div>
+                    <ul>
+                        {allElements.map((element) => (
+                            <li key={element.id}>
+                                <strong>Title:</strong> {element.album_title}, <strong>Release Date:</strong> {element.release_date},{' '}
+                                <strong>Genre:</strong> {element.genre}, <strong>Artist:</strong> {element.artist_name}
+                                <button onClick={() => { setSelectedAlbumTitle(element.album_title); }}>
+                                    View Details
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default Quadrant1;

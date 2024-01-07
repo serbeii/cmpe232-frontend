@@ -21,6 +21,18 @@
   flex: 1;
 }
 
+.quadrant-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+  align-items: center;
+  border-radius: 20px;
+  margin: 10px;
+  background-color: #522d80;
+  height: calc(100% - 50px);
+  flex: 1;
+}
+
 .input-field {
   width: calc(100%);
   padding: 10px;

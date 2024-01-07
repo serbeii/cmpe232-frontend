@@ -15,22 +15,22 @@ const App = () => {
     };
 
     return (
-    <Router>
-      <Routes>
-       <Route
-          path="/"
-          element={<LoginForm onLoginSuccess={handleLoginSuccess} />}
-        /> 
-        <Route
-          path="/admin"
-          element={userRoles.includes('ADMIN') ? <AdminPage /> : <Navigate to="/" replace />}
-        />
-        <Route
-          path="/user"
-          element={userRoles.includes('USER') ? <UserPage /> : <Navigate to="/" replace />}
-        />
-      </Routes>
-    </Router>
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={<LoginForm onLoginSuccess={handleLoginSuccess} />}
+                />
+                <Route
+                    path="/admin"
+                    element={userRoles.includes('ADMIN') ? <AdminPage /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/user"
+                    element={userRoles.includes('USER') ? <UserPage /> : <Navigate to="/" replace />}
+                />
+            </Routes>
+        </Router>
     );
 };
 

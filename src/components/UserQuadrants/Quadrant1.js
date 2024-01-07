@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const Quadrant1 = () => {
+const Quadrant1 = ({setSelectedAlbumTitle, setSelectedArtistName}) => {
   const [showSearchResults, setShowSearchResults] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -10,13 +10,18 @@ const Quadrant1 = () => {
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    // Replace 'your-backend-search-endpoint' with the actual endpoint for searching
-    const searchResults = await axios.get(`/your-backend-search-endpoint?query=${searchQuery}`);
-    setSearchResults(searchResults);
-  };
+    try {
+        const response = await axios.get(`http://localhost:8085/api/v1/album/searchAlbum/${searchQuery}`);
+        setSearchResults(response.data);
+        console.log(response.data)
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+    } finally {
+        setSearchQuery(''); 
+    }
+    };
 
   const handleShowAllElements = useCallback(async () => {
-    // Replace 'your-backend-all-elements-endpoint' with the actual endpoint for fetching all elements
     const allElements = await axios.get(`http://localhost:8085/api/v1/user/viewCollection/${user_id}`);
     setAllElements(allElements.data);
       console.log(allElements.data);
@@ -26,15 +31,28 @@ const Quadrant1 = () => {
      handleShowAllElements();
   }, [handleShowAllElements]);
 
+  const addToCollection = async (result) => {
+      const payload = {
+        userId: user_id,
+        albumTitle: result.title
+      }
+      try{
+        const response = await axios.post(`http://localhost:8085/api/v1/user/addAlbumtoCollection`, payload);
+      }
+      catch (error) {
+          console.log(error);
+      }
+  };
+
   return (
     <div>
-      <button onClick={() => setShowSearchResults(!showSearchResults)}>
+      <button onClick={() => {setShowSearchResults(!showSearchResults); handleShowAllElements()} }>
         Toggle Menu
       </button>
 
       {showSearchResults ? (
-        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-            <form onSubmit={handleSearchSubmit} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+        <div >
+            <form onSubmit={handleSearchSubmit}>
             <input
             type="text"
             value={searchQuery}
@@ -44,15 +62,16 @@ const Quadrant1 = () => {
             />
             </form>
     
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '10px' }}>
-            <button type="submit">Search</button>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+            <button type="button" onClick={handleSearchSubmit}>Search</button>
         </div>
 
             <ul>
             {searchResults.map((result) => (
-                <li key={result.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                    <span>{result.title}</span>
-                    <button onClick={() => console.log(`Button for ${result.title} clicked`)} style={{ marginLeft: '10px' }}>
+                <li key={result.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>   
+                <strong>Title:</strong> {result.title}, <strong>Release Date:</strong> {result.releaseDate},{' '}
+                <strong>Genre:</strong> {result.genre}, <strong>Artist:</strong> {result.artistName}
+                    <button onClick={() => addToCollection(result)} style={{ marginLeft: '10px' }}>
                         Add to Collection
                     </button>
                 </li>
@@ -66,7 +85,7 @@ const Quadrant1 = () => {
               <li key={element.id}>
                 <strong>Title:</strong> {element.album_title}, <strong>Release Date:</strong> {element.release_date},{' '}
                 <strong>Genre:</strong> {element.genre}, <strong>Artist:</strong> {element.artist_name}
-                <button onClick={() => console.log(`Button for ${element.album_title} clicked`)}>
+                <button onClick={() => {setSelectedAlbumTitle(element.album_title); console.log(element.album_title)}}>
                   View Details
                 </button>
               </li>

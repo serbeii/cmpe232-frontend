@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Quadrant4 = () => {
+const Quadrant4 = (selectedAlbumName) => {
   return (
     <div>
       View

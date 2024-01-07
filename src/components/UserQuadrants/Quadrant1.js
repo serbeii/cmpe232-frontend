@@ -5,7 +5,8 @@ const Quadrant1 = ({ setSelectedAlbumTitle, setSelectedArtistName }) => {
     const [showSearchResults, setShowSearchResults] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [allElements, setAllElements] = useState([]);
+    const [allElements, setAllElements] = useState([]);    
+    const [username, setUsername] = useState('');
     const user_id = sessionStorage.getItem('User id');
 
     const handleSearchSubmit = async (e) => {
@@ -42,8 +43,23 @@ const Quadrant1 = ({ setSelectedAlbumTitle, setSelectedArtistName }) => {
         }
     };
 
+    const fetchUsername = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8085/api/v1/user/getUsername/${user_id}`);
+            setUsername(response.data);  // Assuming the response contains the data you want to set as the header
+        } catch (error) {
+            console.error('Error fetching data from the backend:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUsername();
+    }, []);
+
+
     return (
         <div>
+            <h1> Current user: {username} </h1>
             <button onClick={() => { setShowSearchResults(!showSearchResults); handleShowAllElements() }}>
                 Toggle Menu
             </button>

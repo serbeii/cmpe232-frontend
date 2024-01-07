@@ -9,6 +9,7 @@ const Quadrant4 = () => {
     const [artistName, setArtistName] = useState('');
     const [removedArtist, setRemovedArtist] = useState('');
     const [removedUsername, setRemovedUsername] = useState('');
+    const [removedAlbum, setRemovedAlbum] = useState('');
     const [oldUsername, setOldUsername] = useState('');
     const [newUsername, setNewUsername] = useState('');
 
@@ -16,6 +17,7 @@ const Quadrant4 = () => {
     const [adminAddSuccess, setAdminAddSuccess] = useState(false);
     const [artistAddSuccess, setArtistAddSuccess] = useState(false);
     const [artistRemoveSuccess, setArtistRemoveSuccess] = useState(false);
+    const [albumRemoveSuccess, setAlbumRemoveSuccess] = useState(false);
     const [userRemoveSuccess, setUserRemoveSuccess] = useState(false);
     const [renameSuccess, setRenameSuccess] = useState(false);
 
@@ -181,6 +183,34 @@ const Quadrant4 = () => {
         }
     };
 
+
+    const removeAlbum = async (event) => {
+        event.preventDefault();
+
+        const payload = { albumName: removedAlbum };
+
+        try {
+            const response = await axios.post('http://localhost:8085/api/v1/album/deleteAlbum', payload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.status === 200) {
+                setAlbumRemoveSuccess(true);
+
+                setTimeout(() => {
+                    setAlbumRemoveSuccess(false);
+                }, 5000);
+            } else {
+                console.error('Operation failed with status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
             <div className='bordered'>
@@ -306,6 +336,23 @@ const Quadrant4 = () => {
                 <button onClick={(e) => removeDatabase(e)} className="admin-button">
                     DESTROY DATABASE
                 </button>
+            </div>
+
+            <div className='bordered'>
+                <button onClick={(e) => removeAlbum(e)} className="admin-button">
+                    REMOVE ALBUM
+                </button>
+                <form>
+                    <label>
+                        Album Name:
+                        <input type="text" value={removedAlbum} onChange={(e) => setRemovedAlbum(e.target.value)} />
+                    </label>
+                </form>
+                {albumRemoveSuccess && (
+                    <div style={{ marginTop: '10px', color: 'green' }}>
+                        Operation successful!
+                    </div>
+                )}
             </div>
 
         </div>
